@@ -31,6 +31,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="95"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -53,7 +54,7 @@
                  Width="200" 
                  PlaceholderText="Search..."/>
         <ListBox Grid.Column="0" 
-                 Grid.Row="2"
+                 Grid.Row="3"
                  Grid.ColumnSpan="2"
                  Name="CategoryList" 
                  HorizontalAlignment="Stretch" 
@@ -66,14 +67,28 @@
                   HorizontalAlignment="Right" 
                   VerticalAlignment="Top"
                   Grid.Row="1" 
-                  Grid.RowSpan="2"
+                  Grid.RowSpan="3"
                   ItemsSource="{Binding Categories}"
                   DisplayMemberPath="Name"
                   SelectionChanged="OnCategoryChanged"
                   Width="180" 
                   PlaceholderText="Select Category" 
                   Grid.Column="1" 
-                  Margin="0, 0, 10, 0"/>
+                  Margin="0, -10, 10, 0"/>
+        <Button Content="Add New" 
+                Name="AddNotice"
+                Grid.Column="1"
+                HorizontalAlignment="Right" 
+                Margin="5,0,0,5" 
+                Grid.Row="2" 
+                VerticalAlignment="Top"/>
+        <Button Content="My Notices" 
+                Name="MyNotices"
+                HorizontalAlignment="Left"
+                Margin="5,5,5,5" 
+                Grid.Column="0"
+                Grid.Row="2"
+                VerticalAlignment="Top"/>
         <!--<ComboBox Grid.Column="1" 
                   Grid.Row="1"
                   ItemsSource="{Binding Categories}"

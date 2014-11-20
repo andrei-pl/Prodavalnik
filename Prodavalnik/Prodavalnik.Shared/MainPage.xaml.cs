@@ -60,10 +60,6 @@ namespace Prodavalnik
                 viewModel2,
                 viewModel2,
                 viewModel2,
-                viewModel2,
-                viewModel2,
-                viewModel2,
-                viewModel2
             };
 
             this.DataContext = categoryModel;
