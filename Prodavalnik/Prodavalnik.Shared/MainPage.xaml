@@ -5,9 +5,10 @@
     xmlns:local="using:Prodavalnik"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="using:Prodavalnik.ViewModel"
     xmlns:partialViews="using:Prodavalnik.PartialViews"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    xmlns:viewModels="using:Prodavalnik.ViewModel"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
         <DataTemplate x:Name="NoticesDataTemplate">
@@ -28,9 +29,9 @@
     </Page.Resources>
     <Grid Name="MainPanel">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="0.4*"></RowDefinition>
-            <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="95"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -44,42 +45,46 @@
         <TextBox Grid.Column="0" 
                  Grid.Row="1"
                  HorizontalAlignment="Left" 
-                 Margin="15,0,0,0"
+                 Margin="5,0,0,0"
                  Grid.ColumnSpan="2"
                  TextWrapping="Wrap"
                  VerticalAlignment="Top" 
                  FontSize="18"
                  Width="200" 
                  PlaceholderText="Search..."/>
-        <ComboBox Grid.Column="1" 
+        <ListBox Grid.Column="0" 
+                 Grid.Row="2"
+                 Grid.ColumnSpan="2"
+                 Name="CategoryList" 
+                 HorizontalAlignment="Stretch" 
+                 VerticalAlignment="Stretch" 
+                 Margin="5,5,5,5"
+                 RenderTransformOrigin="0.353,0.5"
+                 ItemsSource="{Binding Categories}"
+                 ItemTemplate="{StaticResource NoticesDataTemplate}" FontFamily="Global User Interface" Grid.RowSpan="2"/>
+        <ComboBox 
+                  HorizontalAlignment="Right" 
+                  VerticalAlignment="Top"
+                  Grid.Row="1" 
+                  Grid.RowSpan="2"
+                  ItemsSource="{Binding Categories}"
+                  DisplayMemberPath="Name"
+                  SelectionChanged="OnCategoryChanged"
+                  Width="180" 
+                  PlaceholderText="Select Category" 
+                  Grid.Column="1" 
+                  Margin="0, 0, 10, 0"/>
+        <!--<ComboBox Grid.Column="1" 
                   Grid.Row="1"
                   ItemsSource="{Binding Categories}"
                   DisplayMemberPath="Name"
                   HorizontalAlignment="Right" 
                   VerticalAlignment="Top" 
-                  Width="150" 
+                  Width="183" 
                   RenderTransformOrigin="0.5,0.5" 
                   PlaceholderText="Select category" 
-                  FontSize="16" 
-                  Grid.RowSpan="2"
-                  SelectionChanged="OnCategoryChanged">
-            <ComboBox.RenderTransform>
-                <CompositeTransform SkewY="0" TranslateY="0"/>
-            </ComboBox.RenderTransform>
-        </ComboBox>
-        <ListBox Grid.Column="1" 
-                 Name="CategryList"
-                  HorizontalAlignment="Left" 
-                  Height="596" 
-                  Margin="27.857,29.857,0,0" 
-                  Grid.Row="2"
-                  VerticalAlignment="Top" 
-                  Width="485" 
-                  RenderTransformOrigin="0.353,0.5"
-                  ItemsSource="{Binding Categories}"
-                  ItemTemplate="{StaticResource NoticesDataTemplate}" FontFamily="Global User Interface"/>
-        <TextBox Grid.Column="1"  Name="txtResult" HorizontalAlignment="Left" Margin="385.857,0.286,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" FontFamily="Global User Interface"/>
-        <TextBlock Grid.Column="1" Margin="251.857,6.286,682.429,-7.857" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Text="TextBlock" FontSize="20"/>
+                  FontSize="16"
+                  SelectionChanged="OnCategoryChanged" Height="35" Margin="0,1,0.429,0" Canvas.ZIndex="100" Background="Black"/>-->
 
     </Grid>
 </Page>

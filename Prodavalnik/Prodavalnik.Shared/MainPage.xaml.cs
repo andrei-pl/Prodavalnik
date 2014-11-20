@@ -57,6 +57,12 @@ namespace Prodavalnik
             categoryModel.Categories = new List<CategoryViewModel>()
             {
                 viewModel,
+                viewModel2,
+                viewModel2,
+                viewModel2,
+                viewModel2,
+                viewModel2,
+                viewModel2,
                 viewModel2
             };
 
@@ -66,8 +72,8 @@ namespace Prodavalnik
 
         public void OnCategoryChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.txtResult.Text = ((CategoryViewModel)e.AddedItems[0]).Name + "haha";
-            this.CategryList.ItemsSource = new List<CategoryViewModel>(){(CategoryViewModel)e.AddedItems[0]};
+           // this.txtResult.Text = ((CategoryViewModel)e.AddedItems[0]).Name + "haha";
+            this.CategoryList.ItemsSource = new List<CategoryViewModel>(){(CategoryViewModel)e.AddedItems[0]};
             //var combobox = sender as ComboBox;
 
             //this.txtResult.Text = combobox.SelectedValue.ToString();
