@@ -7,8 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:partialViews="using:Prodavalnik.PartialViews"
     mc:Ignorable="d"
+    xmlns:viewModels="using:Prodavalnik.ViewModel"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.DataContext>
+        <viewModels:NoticeViewModel></viewModels:NoticeViewModel>
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
@@ -35,11 +39,15 @@
                  Width="200" 
                  PlaceholderText="Search..."/>
         <ComboBox Grid.Column="1" 
+                  Grid.Row="1"
+                  ItemsSource="{Binding Text}"
                   HorizontalAlignment="Right" 
                   VerticalAlignment="Top" 
-                  Margin="0,86,16,0"
                   Width="150" 
-                  RenderTransformOrigin="0.5,0.5" PlaceholderText="Select category" FontSize="16" Grid.RowSpan="2">
+                  RenderTransformOrigin="0.5,0.5" 
+                  PlaceholderText="Select category" 
+                  FontSize="16" 
+                  Grid.RowSpan="2">
             <ComboBox.RenderTransform>
                 <CompositeTransform SkewY="0" TranslateY="0"/>
             </ComboBox.RenderTransform>

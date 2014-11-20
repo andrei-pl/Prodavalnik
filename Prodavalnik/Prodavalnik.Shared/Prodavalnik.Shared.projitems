@@ -15,13 +15,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Notice.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PartialViews\CategoryList.xaml.cs">
       <DependentUpon>CategoryList.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)PartialViews\Logo.xaml.cs">
       <DependentUpon>Logo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\CategoryViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\NoticeViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\RootViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>

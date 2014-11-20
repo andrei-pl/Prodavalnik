@@ -12,12 +12,10 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="2.5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>-->
-        <ListView Name="CategoryListView"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Top" 
-                  Height="150">
-            <Image Height="100" Width="150"/>
-        </ListView>
+
+            <TextBlock TextWrapping="Wrap" Text="{Binding Title}" />
+            <TextBlock TextWrapping="Wrap" Text="{Binding Description}"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding Image}"/>
 
     </Grid>
 </Page>
