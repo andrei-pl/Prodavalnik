@@ -74,5 +74,19 @@ namespace Prodavalnik
 
             //this.txtResult.Text = combobox.SelectedValue.ToString();
         }
+
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    var type = e.SourcePageType;
+        //    var vm = e.Parameter;
+        //    this.DataContext = vm;
+
+        //    base.OnNavigatedTo(e);
+        //}
+
+        private void AddNotice_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(AddNoticePage));
+        }
     }
 }
