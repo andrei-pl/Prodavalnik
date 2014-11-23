@@ -108,7 +108,7 @@ namespace Prodavalnik
            
             this.navigationHelper.OnNavigatedTo(e);
            
-            this.DataContext = e.Parameter;
+            this.DataContext = e.Parameter as RootViewModel;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -121,7 +121,7 @@ namespace Prodavalnik
         private void OnCategoryChanged(object sender, SelectionChangedEventArgs e)
         {
             // this.txtResult.Text = ((CategoryViewModel)e.AddedItems[0]).Name + "haha";
-            this.CategoryList.ItemsSource = new List<CategoryViewModel>(){(CategoryViewModel)e.AddedItems[0]};
+            this.categoryList.ItemsSource = new List<CategoryViewModel>(){(CategoryViewModel)e.AddedItems[0]};
             //var combobox = sender as ComboBox;
 
             //this.txtResult.Text = combobox.SelectedValue.ToString();
@@ -129,7 +129,7 @@ namespace Prodavalnik
 
         private void AddNotice_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(AddNoticePage));
+            this.Frame.Navigate(typeof(AddNoticePage), this.DataContext);
         }
     }
 }

@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Parse;
 using Prodavalnik.ViewModel;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -103,9 +104,9 @@ namespace Prodavalnik
                 viewModel.Notices = new List<NoticeViewModel>()
                 {
                     new NoticeViewModel(),
-                    new NoticeViewModel("new", "desc", "image", "category1", "new", "desc", "image", "category1", "new", "desc"),
-                    new NoticeViewModel("new2", "desc2", "image2", "category2", "new2", "desc2", "image2", "category2", "new2", "desc2"),
-                    new NoticeViewModel("new3", "desc322", "image3", "category3", "new3", "desc322", "image3", "category3", "new3", "desc322"),
+                    new NoticeViewModel("new", "desc", new BitmapImage(), "category1", "new", "category1", "new", "desc"),
+                    new NoticeViewModel("new2", "desc2", new BitmapImage(), "category2", "new2", "category2", "new2", "desc2"),
+                    new NoticeViewModel("new3", "desc322", new BitmapImage(), "category3", "new3", "category3", "new3", "desc322"),
                 };
 
                     var viewModel2 = new CategoryViewModel("New Category2");
@@ -113,9 +114,9 @@ namespace Prodavalnik
                     viewModel2.Notices = new List<NoticeViewModel>()
                 {
                     new NoticeViewModel(),
-                    new NoticeViewModel("new1", "desc", "image", "category4", "new", "desc", "image", "category1", "new", "desc"),
-                    new NoticeViewModel("new4", "desc2", "image2", "category5", "new", "desc", "image", "category1", "new", "desc"),
-                    new NoticeViewModel("new5", "desc322", "image3", "category6", "new", "desc", "image", "category1", "new", "desc"),
+                    new NoticeViewModel("new1", "desc", new BitmapImage(), "category4", "new", "desc", "new", "desc"),
+                    new NoticeViewModel("new4", "desc2", new BitmapImage(), "category5", "new", "category1", "new", "desc"),
+                    new NoticeViewModel("new5", "desc322", new BitmapImage(), "category6", "new", "category1", "new", "desc"),
                 };
 
 

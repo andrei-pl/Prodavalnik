@@ -7,6 +7,11 @@ namespace Prodavalnik.ViewModel
 {
     class CategoryViewModel : ViewModelBase
     {
+        public CategoryViewModel() 
+            : this ("")
+        {
+        }
+
         public CategoryViewModel(string name)
         {
             this.Name = name;

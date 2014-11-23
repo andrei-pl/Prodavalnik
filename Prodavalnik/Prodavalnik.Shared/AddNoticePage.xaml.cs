@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Prodavalnik.Common;
+using Prodavalnik.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +25,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Parse;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -39,6 +41,7 @@ namespace Prodavalnik
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
         private MediaCapture captureManager;
         private Geolocator locator;
+        private BitmapImage bmpImage;
         private bool isCapturingStoped;
 
         /// <summary>
@@ -161,7 +164,7 @@ namespace Prodavalnik
                 await captureManager.CapturePhotoToStorageFileAsync(imgFormat, file);
 
                 // Get photo as a BitmapImage
-                BitmapImage bmpImage = new BitmapImage(new Uri(file.Path));
+                bmpImage = new BitmapImage(new Uri(file.Path));
 
                 // imagePreivew is a <Image> object defined in XAML
                 capturePreview.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
@@ -218,7 +221,7 @@ namespace Prodavalnik
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.DataContext = e.Parameter;
+            this.DataContext = e.Parameter as RootViewModel;
             navigationHelper.OnNavigatedTo(e);
         }
 
@@ -229,5 +232,32 @@ namespace Prodavalnik
         }
 
         #endregion
+
+        private void AddNotice_Click(object sender, RoutedEventArgs e)
+        {
+            string title = this.edtTitle.Text;
+            string description = this.edtDescription.Text;
+            string price = this.edtPrice.Text;
+            string phone = this.edtPhone.Text;
+            string address = this.edtAddress.Text;
+            string name = this.edtName.Text;
+            string category = this.cmbCategories.SelectedValue.ToString();
+
+
+
+            var notice = new NoticeViewModel(title, description, bmpImage, category, price, name, address, phone);
+            var parseObject = new ParseObject("Notices");
+            parseObject["Title"] = title;
+            parseObject["Description"] = description;
+            parseObject["Price"] = price;
+            parseObject["Phone"] = phone;
+            parseObject["Address"] = address;
+            parseObject["Name"] = name;
+            parseObject["Category"] = category;
+            //parseObject["Picture"] = bmpImage;
+            parseObject.SaveAsync();
+            //notice.SaveAsync();
+            notice.Id = parseObject.ObjectId;
+        }
     }
 }

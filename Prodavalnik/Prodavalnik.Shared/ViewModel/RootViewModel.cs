@@ -9,8 +9,18 @@ namespace Prodavalnik.ViewModel
     {
         public IEnumerable<CategoryViewModel> Categories { get; set; }
 
+        public List<string> CategoriesList { get; set; }
+
         public RootViewModel()
         {
+            CategoriesList = new List<string>{
+                "Home",
+                "Garden",
+                "Cars",
+                "Phones",
+                "Computers",
+                "Other"
+            };
         }
     }
 }

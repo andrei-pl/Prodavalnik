@@ -32,6 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)PartialViews\Logo.xaml.cs">
       <DependentUpon>Logo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Categories.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\CategoryViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\NoticeViewModel.cs" />
