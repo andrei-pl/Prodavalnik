@@ -243,8 +243,6 @@ namespace Prodavalnik
             string name = this.edtName.Text;
             string category = this.cmbCategories.SelectedValue.ToString();
 
-
-
             var notice = new NoticeViewModel(title, description, bmpImage, category, price, name, address, phone);
             var parseObject = new ParseObject("Notices");
             parseObject["Title"] = title;
@@ -257,7 +255,7 @@ namespace Prodavalnik
             //parseObject["Picture"] = bmpImage;
             parseObject.SaveAsync();
             //notice.SaveAsync();
-            notice.Id = parseObject.ObjectId;
+            notice.Id = parseObject.ObjectId; //It's for the SQLite
         }
     }
 }
