@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Parse;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -37,6 +38,8 @@ namespace Prodavalnik
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+
+            ParseClient.Initialize("H2Ba7h54FOUeuDtyp2kezNhd3cdnV5mluHoKfqcU", "bHWPQn4IdlDXQ0cYwzrh3FTGfQ1iuuuWyHOLkKdm");
         }
 
         /// <summary>
