@@ -1,14 +1,21 @@
-﻿using Prodavalnik.Common;
+﻿using Newtonsoft.Json.Linq;
+using Prodavalnik.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.Data.Json;
+using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media.Capture;
 using Windows.Media.MediaProperties;
 using Windows.Storage;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,6 +38,8 @@ namespace Prodavalnik
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
         MediaCapture captureManager;
+        Geolocator locator;
+
 
         /// <summary>
         /// This can be changed to a strongly typed view model.
@@ -56,7 +65,55 @@ namespace Prodavalnik
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += navigationHelper_LoadState;
             this.navigationHelper.SaveState += navigationHelper_SaveState;
+
+            locator = null;
+
+            LoadLocation();
             InitCamera();
+        }
+
+        private async void LoadLocation()
+        {
+            if (locator == null)
+            {
+                locator = new Geolocator();
+            }
+
+            locator.DesiredAccuracy = PositionAccuracy.Default;
+            locator.MovementThreshold = 100;
+
+            Geoposition position = await locator.GetGeopositionAsync();
+            var latitude = position.Coordinate.Latitude;
+            var longitude = position.Coordinate.Longitude;
+            string address = await GetAddress(latitude, longitude);
+
+            this.edtAddress.Text = address;
+        }
+
+        private static async Task<string> GetAddress(double latitude, double longitude)
+        {
+            string url = "http://maps.google.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=false";
+            string address = "";
+            string jsonAddress = "";
+
+            // Create the web request  
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+
+            // Get response  
+            using (HttpWebResponse response = await request.GetResponseAsync() as HttpWebResponse)
+            {
+                // Get the response stream  
+
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+
+                // Read the whole contents and return as a string  
+                jsonAddress = reader.ReadToEnd();
+
+                JObject jsonObj = JObject.Parse(jsonAddress);
+                address = jsonObj["results"][0]["address_components"][2]["long_name"].ToString();
+            }
+
+            return address;
         }
 
         async private void InitCamera()
@@ -155,11 +212,13 @@ namespace Prodavalnik
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            //StopCapturePreview();
             navigationHelper.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            StopCapturePreview();
             navigationHelper.OnNavigatedFrom(e);
         }
 
