@@ -37,9 +37,9 @@ namespace Prodavalnik
 
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
-        MediaCapture captureManager;
-        Geolocator locator;
-
+        private MediaCapture captureManager;
+        private Geolocator locator;
+        private bool isCapturingStoped;
 
         /// <summary>
         /// This can be changed to a strongly typed view model.
@@ -67,6 +67,7 @@ namespace Prodavalnik
             this.navigationHelper.SaveState += navigationHelper_SaveState;
 
             locator = null;
+            isCapturingStoped = false;
 
             LoadLocation();
             InitCamera();
@@ -136,7 +137,11 @@ namespace Prodavalnik
 
         async private void StopCapturePreview()
         {
-            await captureManager.StopPreviewAsync();
+            if (!isCapturingStoped)
+            {
+                await captureManager.StopPreviewAsync();
+                isCapturingStoped = true;
+            }
         }
 
         async private void CapturePhoto_Click(object sender, RoutedEventArgs e)
@@ -167,6 +172,7 @@ namespace Prodavalnik
             else
             {
                 InitCamera();
+                isCapturingStoped = false;
                 imagePreivew.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 capturePreview.Visibility = Windows.UI.Xaml.Visibility.Visible;
             }
@@ -212,7 +218,7 @@ namespace Prodavalnik
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //StopCapturePreview();
+            this.DataContext = e.Parameter;
             navigationHelper.OnNavigatedTo(e);
         }
 

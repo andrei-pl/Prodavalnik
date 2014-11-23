@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Parse;
+using Prodavalnik.ViewModel;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -95,10 +96,43 @@ namespace Prodavalnik
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
 #endif
 
+                var viewModel = new CategoryViewModel("New Category");
+
+                var categoryModel = new RootViewModel();
+
+                viewModel.Notices = new List<NoticeViewModel>()
+                {
+                    new NoticeViewModel(),
+                    new NoticeViewModel("new", "desc", "image", "category1", "new", "desc", "image", "category1", "new", "desc"),
+                    new NoticeViewModel("new2", "desc2", "image2", "category2", "new2", "desc2", "image2", "category2", "new2", "desc2"),
+                    new NoticeViewModel("new3", "desc322", "image3", "category3", "new3", "desc322", "image3", "category3", "new3", "desc322"),
+                };
+
+                    var viewModel2 = new CategoryViewModel("New Category2");
+
+                    viewModel2.Notices = new List<NoticeViewModel>()
+                {
+                    new NoticeViewModel(),
+                    new NoticeViewModel("new1", "desc", "image", "category4", "new", "desc", "image", "category1", "new", "desc"),
+                    new NoticeViewModel("new4", "desc2", "image2", "category5", "new", "desc", "image", "category1", "new", "desc"),
+                    new NoticeViewModel("new5", "desc322", "image3", "category6", "new", "desc", "image", "category1", "new", "desc"),
+                };
+
+
+                    categoryModel.Categories = new List<CategoryViewModel>()
+                {
+                    viewModel,
+                    viewModel2,
+                    viewModel2,
+                    viewModel2,
+                };
+
+                //this.DataContext = categoryModel;
+
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                if (!rootFrame.Navigate(typeof(MainPage), categoryModel))
                 {
                     throw new Exception("Failed to create initial page");
                 }
