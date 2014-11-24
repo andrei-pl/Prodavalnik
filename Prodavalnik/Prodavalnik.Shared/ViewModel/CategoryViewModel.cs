@@ -7,17 +7,20 @@ namespace Prodavalnik.ViewModel
 {
     class CategoryViewModel : ViewModelBase
     {
-        public CategoryViewModel() 
-            : this ("")
+        public CategoryViewModel()
+            : this("")
         {
+
         }
 
         public CategoryViewModel(string name)
         {
             this.Name = name;
+            this.Notices = new List<NoticeViewModel>();
         }
+
         public string Name { get; set; }
 
-        public IEnumerable<NoticeViewModel> Notices { get; set; }
+        public IList<NoticeViewModel> Notices { get; set; }
     }
 }

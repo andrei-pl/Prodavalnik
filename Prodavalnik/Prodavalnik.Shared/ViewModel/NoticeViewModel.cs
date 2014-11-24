@@ -29,7 +29,6 @@ namespace Prodavalnik.ViewModel
         public string Category { get; set; }
 
         public NoticeViewModel()
-            : this("Title", "Description", new BitmapImage(), "New Category", "3", "Pesho", "Sofia", "00000")
         {
             
         }

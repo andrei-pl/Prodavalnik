@@ -33,6 +33,9 @@ namespace Prodavalnik
 #if WINDOWS_PHONE_APP
         private TransitionCollection transitions;
 #endif
+        RootViewModel rootViewModel;
+        IEnumerable<Notice> notices;
+        IDictionary<string, CategoryViewModel> categories;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -42,24 +45,60 @@ namespace Prodavalnik
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
-
-            InitParse();
+            
+            categories = new Dictionary<string, CategoryViewModel>();
         }
 
-        private async void InitParse()
+        private async Task InitParse()
         {
             ParseObject.RegisterSubclass<Notice>();
 
             ParseClient.Initialize("H2Ba7h54FOUeuDtyp2kezNhd3cdnV5mluHoKfqcU", "bHWPQn4IdlDXQ0cYwzrh3FTGfQ1iuuuWyHOLkKdm");
 
-            var notices = await this.GetNotices();
+            notices = await this.GetNotices();
+
+            this.InitRootViewModel();
         }
 
         private async Task<IEnumerable<Notice>> GetNotices()
         {
-            var notices = await new ParseQuery<Notice>().FindAsync();
+            var noticesIEnumerable = await new ParseQuery<Notice>().FindAsync();
 
-            return notices;
+            return noticesIEnumerable;
+        }
+
+        private void InitRootViewModel()
+        {
+            foreach (var notice in notices)
+            {
+                if (!categories.ContainsKey(notice.Category))
+                {
+                    categories[notice.Category] = new CategoryViewModel(notice.Category);
+                }
+
+                var noticeViewModel = new NoticeViewModel()
+                {
+                    Title = notice.Title,
+                    Description = notice.Description,
+                    Price = notice.Price,
+                    Phone = notice.Phone,
+                    Name = notice.Name,
+                    Address = notice.Address,
+                    Category = notice.Category
+                };
+
+                categories[notice.Category].Notices.Add(noticeViewModel);
+            }
+
+            rootViewModel = new RootViewModel();
+            var categoriesList = new List<CategoryViewModel>();
+
+            foreach (var category in categories.Values)
+            {
+                categoriesList.Add(category);
+            }
+
+            rootViewModel.Categories = categoriesList;
         }
 
         /// <summary>
@@ -68,7 +107,7 @@ namespace Prodavalnik
         /// search results, and so forth.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -114,44 +153,12 @@ namespace Prodavalnik
                 rootFrame.ContentTransitions = null;
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
 #endif
-               
-                var viewModel = new CategoryViewModel("New Category");
-
-                var categoryModel = new RootViewModel();
-
-                viewModel.Notices = new List<NoticeViewModel>()
-                {
-                    new NoticeViewModel(),
-                    new NoticeViewModel("new", "desc", new BitmapImage(), "category1", "new", "category1", "new", "desc"),
-                    new NoticeViewModel("new2", "desc2", new BitmapImage(), "category2", "new2", "category2", "new2", "desc2"),
-                    new NoticeViewModel("new3", "desc322", new BitmapImage(), "category3", "new3", "category3", "new3", "desc322"),
-                };
-
-                    var viewModel2 = new CategoryViewModel("New Category2");
-
-                    viewModel2.Notices = new List<NoticeViewModel>()
-                {
-                    new NoticeViewModel(),
-                    new NoticeViewModel("new1", "desc", new BitmapImage(), "category4", "new", "desc", "new", "desc"),
-                    new NoticeViewModel("new4", "desc2", new BitmapImage(), "category5", "new", "category1", "new", "desc"),
-                    new NoticeViewModel("new5", "desc322", new BitmapImage(), "category6", "new", "category1", "new", "desc"),
-                };
-
-
-                    categoryModel.Categories = new List<CategoryViewModel>()
-                {
-                    viewModel,
-                    viewModel2,
-                    viewModel2,
-                    viewModel2,
-                };
-
-                //this.DataContext = categoryModel;
+                await InitParse();
 
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(MainPage), categoryModel))
+                if (!rootFrame.Navigate(typeof(MainPage), rootViewModel))
                 {
                     throw new Exception("Failed to create initial page");
                 }

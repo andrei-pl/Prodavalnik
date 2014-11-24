@@ -7,12 +7,13 @@ namespace Prodavalnik.ViewModel
 {
     class RootViewModel : ViewModelBase
     {
-        public IEnumerable<CategoryViewModel> Categories { get; set; }
+        public IList<CategoryViewModel> Categories { get; set; }
 
         public List<string> CategoriesList { get; set; }
 
         public RootViewModel()
         {
+            this.Categories = new List<CategoryViewModel>();
             CategoriesList = new List<string>{
                 "Home",
                 "Garden",
