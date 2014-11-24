@@ -26,6 +26,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Parse;
+using Prodavalnik.Models;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -243,19 +244,33 @@ namespace Prodavalnik
             string name = this.edtName.Text;
             string category = this.cmbCategories.SelectedValue.ToString();
 
-            var notice = new NoticeViewModel(title, description, bmpImage, category, price, name, address, phone);
-            var parseObject = new ParseObject("Notices");
-            parseObject["Title"] = title;
-            parseObject["Description"] = description;
-            parseObject["Price"] = price;
-            parseObject["Phone"] = phone;
-            parseObject["Address"] = address;
-            parseObject["Name"] = name;
-            parseObject["Category"] = category;
-            //parseObject["Picture"] = bmpImage;
-            parseObject.SaveAsync();
-            //notice.SaveAsync();
-            notice.Id = parseObject.ObjectId; //It's for the SQLite
+            var note = new Notice()
+            {
+                Title = title,
+                Description = description,
+                Price = price,
+                Phone = phone,
+                Address = address,
+                Name = name,
+                Category = category,
+                //Image = bmpImage
+            };
+
+            note.SaveAsync();
+
+            //var notice = new NoticeViewModel(title, description, bmpImage, category, price, name, address, phone);
+            //var parseObject = new ParseObject("Notices");
+            //parseObject["Title"] = title;
+            //parseObject["Description"] = description;
+            //parseObject["Price"] = price;
+            //parseObject["Phone"] = phone;
+            //parseObject["Address"] = address;
+            //parseObject["Name"] = name;
+            //parseObject["Category"] = category;
+            ////parseObject["Picture"] = bmpImage;
+            //parseObject.SaveAsync();
+            ////notice.SaveAsync();
+            //notice.Id = parseObject.ObjectId; //It's for the SQLite
         }
     }
 }

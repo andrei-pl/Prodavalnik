@@ -1,22 +1,81 @@
-﻿using System;
+﻿using Parse;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Prodavalnik.Models
 {
-    class Notice
+    [ParseClassName("Notices")]
+    class Notice : ParseObject
     {
-        public string Title { get; set; }
-
-        public string Description { get; set; }
-
-        public string Image { get; set; }
-
-        public Notice(string title, string description, string image)
+        [ParseFieldName("objectId")]
+        public string Id
         {
-            this.Title = title;
-            this.Description = description;
-            this.Image = image;
+            get { return GetProperty<string>(); }
+            set { SetProperty<string>(value); }
+        }
+
+        [ParseFieldName("title")]
+        public string Title
+        {
+            get { return GetProperty<string>(); }
+            set { SetProperty<string>(value); }
+        }
+
+        [ParseFieldName("description")]
+        public string Description
+        {
+            get { return GetProperty<string>(); }
+            set { SetProperty<string>(value); }
+        }
+
+        //[ParseFieldName("image")]
+        //public BitmapImage Image {
+        //    get { return GetProperty<BitmapImage>(); }
+        //    set { SetProperty<BitmapImage>(value); }
+        //}
+
+        [ParseFieldName("imageName")]
+        public string ImageName
+        {
+            get { return GetProperty<string>(); }
+            set { SetProperty<string>(value); }
+        }
+
+        [ParseFieldName("price")]
+        public string Price
+        {
+            get { return GetProperty<string>(); }
+            set { SetProperty<string>(value); }
+        }
+
+        [ParseFieldName("name")]
+        public string Name
+        {
+            get { return GetProperty<string>(); }
+            set { SetProperty<string>(value); }
+        }
+
+        [ParseFieldName("address")]
+        public string Address
+        {
+            get { return GetProperty<string>(); }
+            set { SetProperty<string>(value); }
+        }
+
+        [ParseFieldName("phone")]
+        public string Phone
+        {
+            get { return GetProperty<string>(); }
+            set { SetProperty<string>(value); }
+        }
+
+        [ParseFieldName("category")]
+        public string Category
+        {
+            get { return GetProperty<string>(); }
+            set { SetProperty<string>(value); }
         }
     }
 }

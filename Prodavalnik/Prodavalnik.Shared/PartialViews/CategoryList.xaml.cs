@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Prodavalnik.Models;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,15 +35,15 @@ namespace Prodavalnik.PartialViews
             Title = "Title";
             Description = "Description";
             Image = "image";
-            note = new Notice("Title1", "Description1", "Image1");
+            //note = niew Notce("Title1", "Description1", new BitmapImage(), "some category", "2", "name", "address", "phone");
             
-            Notice n1 = new Notice("Title1", "Description1", "Image1");
-            Notice n2 = new Notice("Title2", "Description2", "Image2");
-            Notice n3 = new Notice("Title3", "Description3", "Image3");
-            Notice n4 = new Notice("Title4", "Description4", "Image4");
-            Notice n5 = new Notice("Title5", "Description5", "Image5");
+            //Notice n1 = new Notice("Title1", "Description1", new BitmapImage(), "some category", "2", "name", "address", "phone");
+            //Notice n2 = new Notice("Title2", "Description2", new BitmapImage(), "some category", "2", "name", "address", "phone");
+            //Notice n3 = new Notice("Title3", "Description3", new BitmapImage(), "some category", "2", "name", "address", "phone");
+            //Notice n4 = new Notice("Title4", "Description4", new BitmapImage(), "some category", "2", "name", "address", "phone");
+            //Notice n5 = new Notice("Title5", "Description5", new BitmapImage(), "some category", "2", "name", "address", "phone");
 
-            notices = new List<Notice> { n1, n2, n3, n4, n5 };
+            //notices = new List<Notice> { n1, n2, n3, n4, n5 };
         }
     }
 }

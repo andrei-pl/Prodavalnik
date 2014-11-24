@@ -17,7 +17,9 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Parse;
 using Prodavalnik.ViewModel;
+using Prodavalnik.Models;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Threading.Tasks;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -41,7 +43,23 @@ namespace Prodavalnik
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
 
+            InitParse();
+        }
+
+        private async void InitParse()
+        {
+            ParseObject.RegisterSubclass<Notice>();
+
             ParseClient.Initialize("H2Ba7h54FOUeuDtyp2kezNhd3cdnV5mluHoKfqcU", "bHWPQn4IdlDXQ0cYwzrh3FTGfQ1iuuuWyHOLkKdm");
+
+            var notices = await this.GetNotices();
+        }
+
+        private async Task<IEnumerable<Notice>> GetNotices()
+        {
+            var notices = await new ParseQuery<Notice>().FindAsync();
+
+            return notices;
         }
 
         /// <summary>
@@ -96,7 +114,7 @@ namespace Prodavalnik
                 rootFrame.ContentTransitions = null;
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
 #endif
-
+               
                 var viewModel = new CategoryViewModel("New Category");
 
                 var categoryModel = new RootViewModel();
