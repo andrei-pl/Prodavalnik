@@ -16,11 +16,27 @@
                 <ListBox FontFamily="Global User Interface" x:Name="AllNotices" ItemsSource="{Binding Notices}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Title}" FontFamily="Global User Interface" />
-                                <TextBlock Text="{Binding Description}" FontFamily="Global User Interface" />
-                                <Image Source="{Binding Image}" Width="200" Height="150" />
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding Image}" 
+                                       Width="150" 
+                                       Height="100" 
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Price}"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Bottom"
+                                           Margin="0,0,15,5"
+                                           FontSize="30"/>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{Binding Title}" FontSize="30" FontFamily="Global User Interface" />
+                                    <TextBlock Text="{Binding Description}" FontSize="24" FontFamily="Global User Interface" />
+                                </StackPanel>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -64,6 +80,7 @@
                  ItemsSource="{Binding Categories}"
                  ItemTemplate="{StaticResource NoticesDataTemplate}" FontFamily="Global User Interface" Grid.RowSpan="2"/>
         <ComboBox 
+                  Name="cmbSelectCategories"
                   HorizontalAlignment="Right" 
                   VerticalAlignment="Top"
                   Grid.Row="1" 
@@ -76,7 +93,7 @@
                   Grid.Column="1" 
                   Margin="0, -10, 10, 0"/>
         <Button Content="Add New" 
-                Name="AddNotice"
+                Name="addNotice"
                 Grid.Column="1"
                 HorizontalAlignment="Right" 
                 Margin="0,0,5,0" 
@@ -87,7 +104,7 @@
                 FontSize="18"
                 Click="AddNotice_Click"/>
         <Button Content="My Notices" 
-                Name="MyNotices"
+                Name="myNotices"
                 HorizontalAlignment="Left"
                 Margin="5,0,0,0" 
                 Grid.Column="0"

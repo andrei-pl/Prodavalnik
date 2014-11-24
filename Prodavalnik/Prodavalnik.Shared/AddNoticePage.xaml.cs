@@ -272,5 +272,21 @@ namespace Prodavalnik
             ////notice.SaveAsync();
             //notice.Id = parseObject.ObjectId; //It's for the SQLite
         }
+
+        private void GoToMainPage(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            StopCapturePreview();
+            this.Frame.Navigate(typeof(MainPage), this.DataContext);
+        }
+
+        private void ChangePictureSize(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            var img = sender as Image;
+            var delta = e.Delta;
+            var scale = delta.Scale;
+
+            img.Width *= scale;
+            img.Height *= scale;
+        }
     }
 }
